@@ -1,33 +1,27 @@
 <?php
 
-$name = isset($_GET['name']) ? $_GET['name'] : 'World';
-$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+include 'vendor/autoload.php';
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  </head>
-  <body>
-      <ol class="breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
-    </ol>
-    <div class="jumbotron">
-      <h1>Hello, <?=$name?>!</h1>
-      <p>
-          ВЫ ВЕЛЕКОЛЕПНЫ!
-      </p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-    </div>
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
-</html>
+$request = Request::createFromGlobals();
+$response = new Response();
+
+$page = $request->query->get('page', 'index_page');
+$page = htmlspecialchars($page, ENT_QUOTES, 'UTF-8');
+
+$fileName = sprintf('src/Feedler/Resources/%s.php', $page);
+
+ob_start();
+if (file_exists($fileName)) {
+    include 'src/Feedler/Resources/layout/header.php';
+    include $fileName;
+    include 'src/Feedler/Resources/layout/footer.php';
+} else  {
+    $response->setStatusCode(404);
+    include 'src/Feedler/Resources/404.php';
+}
+$content = ob_get_clean();
+$response->setContent($content);
+$response->send();
