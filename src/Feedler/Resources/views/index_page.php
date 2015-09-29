@@ -5,7 +5,7 @@
             Много контента и котиков
         </p>
         <p>
-            <a class="btn btn-primary btn-lg" href="/feed/cats.html" role="button">Перейти к просмотру</a>
+            <a class="btn btn-primary btn-lg" href="<?=$generator->generate('feed', array('name' => 'cats'))?>" role="button">Перейти к просмотру</a>
         </p>
     </div>
 </div>
