@@ -28,7 +28,10 @@ $routes->add(
     'feed',
     new Routing\Route(
         '/feed/{name}.html',
-        array('view' => '/Feedler/Resources/views/feed.php')
+        array(
+            'view' => '/Feedler/Resources/views/feed.php',
+            '_controller' => 'Feedler\Controllers\FeedController::feedAction'
+        )
     )
 );
 
