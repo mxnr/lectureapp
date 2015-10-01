@@ -2,17 +2,15 @@
 
 namespace Feedler\Controllers;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
-class PageController
+class PageController extends BaseController
 {
-    public function pageAction()
+    public function helpAction()
     {
-        $a = 1;
-        $b = 2;
-        $c = $a+$b;
+        return $this->render('help');
+    }
 
-        return new Response('c = ' . $c);
+    public function contactsAction()
+    {
+        return $this->render('contacts');
     }
 }

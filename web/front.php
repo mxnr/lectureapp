@@ -7,14 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
 
-function render_template($request, $generator) {
-    ob_start();
-    include __DIR__.'/../src/Feedler/Resources/views/layout/header.php';
-    include __DIR__.'/../src'.$request->attributes->get('view');
-    include __DIR__.'/../src/Feedler/Resources/views/layout/footer.php';
-    return new Response(ob_get_clean());
-}
-
 $request = Request::createFromGlobals();
 $routes = include __DIR__.'/../src/Feedler/Resources/routes/route.php';
 
@@ -28,9 +20,10 @@ try {
     $request->attributes->add($matcher->match($request->getPathInfo()));
 
     $controller = $resolver->getController($request);
+    $controller[0]->setGenerator($generator);
     $arguments = $resolver->getArguments($request, $controller);
 
-    $response = call_user_func($controller, $arguments);
+    $response = call_user_func_array($controller, $arguments);
 } catch (Routing\Exception\ResourceNotFoundException $e) {
     $response = new Response('Страница не найдена!',  404);
 } catch (Exception $e) {

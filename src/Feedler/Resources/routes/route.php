@@ -7,31 +7,28 @@ $routes->add(
     'index_page',
     new Routing\Route(
         '/',
-        array('view' => '/Feedler/Resources/views/index_page.php')
+        array('_controller' => 'Feedler\Controllers\IndexController::indexAction')
     )
 );
 $routes->add(
     'help_page',
     new Routing\Route(
         '/page/help.html',
-        array('view' => '/Feedler/Resources/views/help.php')
+        array('_controller' => 'Feedler\Controllers\PageController::helpAction')
     )
 );
 $routes->add(
     'contacts_page',
     new Routing\Route(
         '/page/contacts.html',
-        array('view' => '/Feedler/Resources/views/contacts.php')
+        array('_controller' => 'Feedler\Controllers\PageController::contactsAction')
     )
 );
 $routes->add(
     'feed',
     new Routing\Route(
         '/feed/{name}.html',
-        array(
-            'view' => '/Feedler/Resources/views/feed.php',
-            '_controller' => 'Feedler\Controllers\FeedController::feedAction'
-        )
+        array('_controller' => 'Feedler\Controllers\FeedController::feedAction')
     )
 );
 

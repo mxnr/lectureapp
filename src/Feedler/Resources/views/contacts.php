@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-    <li><a href="<?=$generator->generate('index_page')?>">Главная</a></li>
+    <li><a href="<?=$this->generator->generate('index_page')?>">Главная</a></li>
     <li class="active">Контакты</li>
 </ol>
 <div class="container">

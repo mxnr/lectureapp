@@ -5,15 +5,10 @@ namespace Feedler\Controllers;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class FeedController
+class FeedController extends BaseController
 {
     public function feedAction($name)
     {
-        var_dump($name);
-        $a = 1;
-        $b = 2;
-        $c = $a+$b;
-
-        return new Response('c = ' . $c);
+        return $this->render('feed');
     }
 }
