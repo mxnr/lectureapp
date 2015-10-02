@@ -9,7 +9,7 @@ class BaseController
 {
     protected $generator;
 
-    public function render($view)
+    public function render($view, $data = array())
     {
         ob_start();
         include __DIR__.'/../Resources/views/layout/header.php';
